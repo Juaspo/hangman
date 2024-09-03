@@ -16,18 +16,24 @@ Accept user input
 It needs to check user input
 show correct and incorrect guessed letters
 '''
+
+
+
+
 nr_of_tries = 5
-the_word = "roam"
+the_word = ""
 guessed_word = ""
 guessed_word_list = []
 
 # Takes in the word and print the equivalent amount of letters in dashes
 def print_lines(word1):
     word2 = ""
+    guessed_word_list.clear()
     for x in word1:
-        #print("_ ", end='')
+        print("-", end='')
         word2 += "-"
         guessed_word_list.append("-")
+    print("")
     return word2
 
 # A function to check if the provided letter exists in the word
@@ -65,26 +71,30 @@ def check_if_word_complete(word1):
 
 
 
-guessed_word = print_lines(the_word)
 
-tries = 0
-word_complete = False
-while tries < nr_of_tries:
-    user_guess = input("type in a letter to guess: ")
-    if(check_match(the_word, user_guess) is False):
-        tries += 1
-        print("you have",nr_of_tries-tries, "tries left")
-    word_complete = check_if_word_complete(the_word)
-    print("______________________________________")
+
+word_file = open("words.txt", "rt")
+for file_line in word_file:
+    word_complete = False
+    tries = 0
+    the_word = file_line.strip()
+    guessed_word = print_lines(the_word)
+
+    while tries < nr_of_tries:
+        user_guess = input("type in a letter to guess: ")
+        if(check_match(the_word, user_guess) is False):
+            tries += 1
+            print("you have",nr_of_tries-tries, "tries left")
+        word_complete = check_if_word_complete(the_word)
+        print("______________________________________")
+        if(word_complete):
+            break
+
     if(word_complete):
-        break
+        print("########## Congratulations ##########")
+        print(f"You have manged to guess the correct word [{the_word}]")
+    else:
+        print("XXXXXXXXXX Too bad XXXXXXXXXX")
+        print(f"You did not mange to guess the correct word [{the_word}]")
 
-
-
-if(word_complete):
-    print("########## Congratulations ##########")
-    print(f"You have manged to guess the correct word [{the_word}]")
-else:
-    print("XXXXXXXXXX Too bad XXXXXXXXXX")
-    print(f"You did not mange to guess the correct word [{the_word}]")
-
+word_file.close()
