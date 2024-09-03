@@ -17,7 +17,7 @@ It needs to check user input
 show correct and incorrect guessed letters
 '''
 
-
+import random
 
 
 nr_of_tries = 5
@@ -70,11 +70,17 @@ def check_if_word_complete(word1):
         return False
 
 
-
+def shuffle_words(shuffle_list):
+    random.shuffle(shuffle_list)
+    return(shuffle_list)
 
 
 word_file = open("words.txt", "rt")
-for file_line in word_file:
+word_list = word_file.readlines()
+word_list = shuffle_words(word_list)
+
+
+for file_line in word_list:
     word_complete = False
     tries = 0
     the_word = file_line.strip()
