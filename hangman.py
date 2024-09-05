@@ -28,6 +28,8 @@ guessed_word_list = []
 # Takes in the word and print the equivalent amount of letters in dashes
 def print_lines(word1):
     word2 = ""
+    print("\n########################################")
+    print("Lets play hangman. Guess the word below")
     guessed_word_list.clear()
     for x in word1:
         print("-", end='')
@@ -97,10 +99,11 @@ for file_line in word_list:
             break
 
     if(word_complete):
-        print("########## Congratulations ##########")
+        print("* * * Congratulations * * *")
         print(f"You have manged to guess the correct word [{the_word}]")
     else:
-        print("XXXXXXXXXX Too bad XXXXXXXXXX")
-        print(f"You did not mange to guess the correct word [{the_word}]")
+        print("X X X Too bad X X X")
+        print(f"You did not guess the correct word [{the_word}]")
+
 
 word_file.close()
